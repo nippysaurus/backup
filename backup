@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+backup_dir=~/.backup
+
+if [ ! -d $backup_dir ]; then
+  mkdir $backup_dir
+fi
+
+filename=$(basename $(pwd))_$(date +%s)
+
+zip -rq $backup_dir/$filename .
+
+ls -lh $backup_dir | grep $filename | awk '{print $5, $9}'
